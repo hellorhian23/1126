@@ -5,6 +5,8 @@ const router = express.Router();
 
 const productModel = require("../models/products");
 
+
+
 router.get("/", (req, res) => {
     
     // 데이터 담겨진 그릇을 불러온다
@@ -89,10 +91,34 @@ router.post("/", (req, res) => {
 
 });
 
-router.patch("/", (req, res) => {
-    res.json({
-        message : "successful product modify"
-    });
+router.patch("/:productID", (req, res) => {
+
+    const ID = req.params.productID;
+
+    // 빈공간 만들어줌 (새로 업데이트 된 내용이 담김)
+    const updateOps = {};
+
+    for (ops of req.body) {
+        updateOps[ops.propName] = ops.value;
+    }
+
+
+
+    productModel
+        .update({_id:ID}, {$set: updateOps})
+        .exec()
+        .then(result => {
+            res.json({
+                message : "updated product",
+                result : result
+            });
+        })
+        .catch(err => {
+            res.json({
+                message : err.message
+            });
+        });
+
 });
 
 
