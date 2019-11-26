@@ -4,11 +4,15 @@ const app = express();
 
 const productsRouter = require("./api/routes/products");
 
-const orderRouder = require("./api/routes/orders")
+const orderRouter = require("./api/routes/orders")
 
-app.use("/orders, orderRouter");
+const userRouter = require("./api/routes/users");
+
+app.use("/orders", orderRouter);
 
 app.use("/products", productsRouter);
+
+app.use("/users", userRouter);
 
 // app.use((req, res) => {
 //         res.json({
