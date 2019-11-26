@@ -21,4 +21,4 @@ router.delete("/", (req, res) => {
     });
 });
 
-module.express = router;
+module.exports = router;
