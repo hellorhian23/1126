@@ -8,8 +8,16 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+
+    const order = {
+            name : req.body.productName,
+            qty : req.body.qty
+    };
+
+
     res.json({
             message : "successful add"
+            orderInfo : order
     });
 });
 

@@ -4,6 +4,8 @@ const app = express();
 
 const mongoose = require("mongoose");
 
+const bodyParser = require("body-parser");
+
 //라우터루트
 
 const productsRouter = require("./api/routes/products");
@@ -20,6 +22,9 @@ const db_url = "mongodb+srv://Rhian:1234@cluster0-h6nuf.mongodb.net/test?retryWr
 mongoose.connect(db_url, {useUnifiedTopology: true, useNewUrlParser: true})
         .then(() => console.log("db connected ... "))
         .catch(err => console.log(err.message));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false}));
 
 
 app.use("/orders", orderRouter);
