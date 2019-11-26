@@ -1,0 +1,23 @@
+{
+  "name": "1126",
+  "version": "1.0.0",
+  "description": "1126",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hellorhian23/1126.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hellorhian23/1126/issues"
+  },
+  "homepage": "https://github.com/hellorhian23/1126#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
