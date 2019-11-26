@@ -18,7 +18,19 @@ router.get("/", (req, res) => {
             res.json({
                 message : "successful get products",
                 count : docs.length,
-                productInfo : docs
+                productInfo : docs.map(doc => {
+                    return{
+                        name: doc.name,
+                        price: doc.price,
+                        date: doc.date,
+                        request: {
+                            type: "GET",
+                            url: "http://localhost:4000/products/" + doc._id
+                        
+                        }
+                    };
+                })
+
             });
         })
 
@@ -42,13 +54,17 @@ router.get("/:productID", (req, res) => {
         .exec()
         .then(result => {
             if (!result) {
-                res.json({
+                return res.json({
                     message : "no product ID"
                 });
             } else {
                 res.json({
                     message : "successful get product",
-                    productInfo : result
+                    productInfo : result,
+                    request : {
+                        type : "GET",
+                        url : "http://localhost:4000/products/"
+                    }
                 });
             }
 
@@ -79,7 +95,11 @@ router.post("/", (req, res) => {
         .then(doc => {
             res.json({
                 message : "registered product",
-                productInfo : doc
+                productInfo : doc,
+                request : {
+                    type : "GET",
+                    url : "http://localhost:4000/products/" + doc._id
+                }
             });
         })
 
@@ -110,7 +130,11 @@ router.patch("/:productID", (req, res) => {
         .then(result => {
             res.json({
                 message : "updated product",
-                result : result
+                result : result,
+                request : {
+                    type : "GET",
+                    url : "http://localhost:4000/products/" + result._id
+                }
             });
         })
         .catch(err => {
@@ -134,8 +158,12 @@ router.delete("/:productID", (req, res) => {
         .exec()
         .then(result => {
             if(result === null) {
-                res.json({
-                    message : "no product ID"
+                return res.json({
+                    message : "no product ID",
+                    request : {
+                        type : "GET",
+                        url : "http://localhost:4000/products/"
+                    }
                 });
 
             } else {
