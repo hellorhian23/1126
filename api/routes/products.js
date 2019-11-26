@@ -27,11 +27,41 @@ router.get("/", (req, res) => {
             });
         });
 
+});
 
 
-    // res.json({
-    //     message : "successful product get"
-    // });
+// api 디테일 겟 (상세보기) - api 기본형
+router.get("/:productID", (req, res) => {
+
+    const id = req.params.productID;
+
+    productModel
+        .findById(id)
+        .exec()
+        .then(result => {
+            if (!result) {
+                res.json({
+                    message : "no product ID"
+                });
+            } else {
+                res.json({
+                    message : "successful get product",
+                    productInfo : result
+                });
+            }
+
+            
+        })
+
+        .catch(err => {
+            res.json({
+                message : err.message
+            });
+            
+        });
+
+
+
 });
 
 router.post("/", (req, res) => {
@@ -65,10 +95,39 @@ router.patch("/", (req, res) => {
     });
 });
 
-router.delete("/", (req, res) => {
-    res.json({
-        message : "successful product delete"
-    });
+
+
+
+
+router.delete("/:productID", (req, res) => {
+
+    const ID = req.params.productID;
+
+    productModel
+        .remove({_id: ID})
+        .exec()
+        .then(result => {
+            if(result === null) {
+                res.json({
+                    message : "no product ID"
+                });
+
+            } else {
+                res.json({
+                    message : "successful deleted product"
+                });
+
+            }
+            
+            
+
+        })
+        .catch(err => {
+            res.json({
+                message : err.message
+            });
+        });
+
 });
 
 module.exports = router;
